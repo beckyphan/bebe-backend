@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
-  # GET /users
-  def index
+  # POST /login
+  def login
+    binding.pry
     @users = User.all
 
     render json: @users
