@@ -1,12 +1,17 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :set_user, only: [:show, :update, :destroy]
+  # before_action :set_user, only: [:show, :update, :destroy]
 
   # POST api/v1/login
   def login
-    binding.pry
-    @users = User.all
+    @user = User.find_by(username: params[:username])
 
-    render json: @users
+    if @user && @user.authenticate(params[:password])
+      render json: {user: UserSerializer.new(@new_user)}, status: 200
+    elsif @user
+      render json: {errors: "Failed to Authenticate"}, status: 400
+    else
+      render json: {errors: "Failed to Find Email"}, status: 400
+    end
   end
 
   # GET /users/1
@@ -47,6 +52,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.require(:user).permit(:name, :username, :password, :password_confirmation)
+      params.permit(:username, :password)
     end
 end
