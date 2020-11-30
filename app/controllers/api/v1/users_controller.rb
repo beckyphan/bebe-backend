@@ -1,7 +1,7 @@
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
 
-  # POST /login
+  # POST api/v1/login
   def login
     binding.pry
     @users = User.all
