@@ -6,20 +6,21 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find_by(username: params[:username])
 
     if @user && @user.authenticate(params[:password])
-      render json: {user: UserSerializer.new(@new_user)}, status: 200
+      user_json = UserSerializer.new(@user).serialized_json
+      render json: user_json, status: 200
     elsif @user
-      render json: {errors: "Failed to Authenticate"}, status: 400
+      render json: {error: "Failed to Authenticate"}, status: 400
     else
-      render json: {errors: "Failed to Find Email"}, status: 400
+      render json: {error: "Failed to Find User"}, status: 400
     end
   end
 
-  # GET /users/1
+  # GET api/v1/users/1
   def show
     render json: @user
   end
 
-  # POST /users
+  # POST api/v1/users
   def create
     @user = User.new(user_params)
 
@@ -30,7 +31,7 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  # PATCH/PUT /users/1
+  # PATCH/PUT api/v1/users/1
   def update
     if @user.update(user_params)
       render json: @user
@@ -39,7 +40,7 @@ class Api::V1::UsersController < ApplicationController
     end
   end
 
-  # DELETE /users/1
+  # DELETE api/v1/users/1
   def destroy
     @user.destroy
   end
