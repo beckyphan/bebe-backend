@@ -1,6 +1,21 @@
 class Api::V1::UsersController < ApplicationController
   # before_action :set_user, only: [:show, :update, :destroy]
 
+  # POST api/v1/users
+  def create
+    binding.pry
+    @user = User.find_by(username: params[:username])
+
+    if @user
+      render json: {error: "Existing username. Are you trying to log in?"}, status: 400
+    else
+      @user = User.create(user_params)
+      binding.pry
+      user_json = UserSerializer.new(@user).serialized_json
+      render json: user_json, status: 200
+    end
+  end
+
   # POST api/v1/login
   def login
     @user = User.find_by(username: params[:username])
@@ -18,17 +33,6 @@ class Api::V1::UsersController < ApplicationController
   # GET api/v1/users/1
   def show
     render json: @user
-  end
-
-  # POST api/v1/users
-  def create
-    @user = User.new(user_params)
-
-    if @user.save
-      render json: @user, status: :created, location: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
   end
 
   # PATCH/PUT api/v1/users/1
@@ -53,6 +57,6 @@ class Api::V1::UsersController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def user_params
-      params.permit(:username, :password)
+      params.permit(:name, :username, :password)
     end
 end
