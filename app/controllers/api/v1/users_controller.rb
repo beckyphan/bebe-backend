@@ -3,14 +3,12 @@ class Api::V1::UsersController < ApplicationController
 
   # POST api/v1/users
   def create
-    binding.pry
     @user = User.find_by(username: params[:username])
 
     if @user
       render json: {error: "Existing username. Are you trying to log in?"}, status: 400
     else
       @user = User.create(user_params)
-      binding.pry
       user_json = UserSerializer.new(@user).serialized_json
       render json: user_json, status: 200
     end
