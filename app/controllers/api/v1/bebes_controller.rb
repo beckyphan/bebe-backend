@@ -15,16 +15,19 @@ class Api::V1::BebesController < ApplicationController
   #   render json: @bebe
   # end
   #
-  # # POST /api/v1/bebes
-  # def create
-  #   @bebe = Bebe.new(bebe_params)
-  #
-  #   if @bebe.save
-  #     render json: @bebe, status: :created, location: @bebe
-  #   else
-  #     render json: @bebe.errors, status: :unprocessable_entity
-  #   end
-  # end
+  # POST /api/v1/bebes
+  def create
+    @bebe = Bebe.new(bebe_params)
+    @user = User.find_by_id(params[:user_id])
+
+    if @user && @user.bebes.new(bebe_params)
+      @user.bebes.create(bebe_params)
+      bebe_json = BebeSerializer.new(@bebe).serialized_json
+      render json: bebe_json
+    else
+      render json: @bebe.errors, status: :unprocessable_entity
+    end
+  end
   #
   # # PATCH/PUT /api/v1/bebes/1
   # def update
@@ -48,6 +51,6 @@ class Api::V1::BebesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def bebe_params
-      params.require(:bebe).permit(:name, :birthdate, :kind, :bio)
+      params.require(:bebe).permit(:name, :birthdate, :kind, :bio, :img)
     end
 end
