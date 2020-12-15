@@ -15,7 +15,7 @@ class Api::V1::BebesController < ApplicationController
   #   render json: @bebe
   # end
   #
-  # POST /api/v1/bebes
+  # POST /api/v1/user/:id/bebes
   def create
     @bebe = Bebe.new(bebe_params)
     @user = User.find_by_id(params[:user_id])
