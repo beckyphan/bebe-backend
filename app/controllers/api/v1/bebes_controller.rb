@@ -10,11 +10,14 @@ class Api::V1::BebesController < ApplicationController
     render json: bebes_json
   end
 
-  # GET /api/v1/bebes/1
-  # def show
-  #   render json: @bebe
-  # end
-  #
+  # GET /api/v1/users/:id/bebes/:id
+  def show
+    @bebe = Bebe.find_by_id(params[:id])
+
+    bebe_json = BebeSerializer.new(@bebe).serialized_json
+    render json: bebe_json
+  end
+
   # POST /api/v1/user/:id/bebes
   def create
     @bebe = Bebe.new(bebe_params)
@@ -29,10 +32,12 @@ class Api::V1::BebesController < ApplicationController
     end
   end
   #
-  # # PATCH/PUT /api/v1/bebes/1
+  # PATCH/PUT /api/v1/bebes/1
   # def update
+  #   binding.pry
   #   if @bebe.update(bebe_params)
-  #     render json: @bebe
+  #     bebe_json = BebeSerializer.new(@bebe).serialized_json
+  #     render json: bebe_json
   #   else
   #     render json: @bebe.errors, status: :unprocessable_entity
   #   end
