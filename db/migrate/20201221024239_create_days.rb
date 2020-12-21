@@ -1,6 +1,6 @@
-class CreateApiV1Days < ActiveRecord::Migration[6.0]
+class CreateDays < ActiveRecord::Migration[6.0]
   def change
-    create_table :api_v1_days do |t|
+    create_table :days do |t|
       t.string :picture
       t.date :date
       t.text :note

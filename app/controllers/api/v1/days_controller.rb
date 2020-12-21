@@ -2,11 +2,15 @@ class Api::V1::DaysController < ApplicationController
   # before_action :set_api_v1_day, only: [:show, :update, :destroy]
   #
   # # GET /api/v1/days
-  # def index
-  #   @api_v1_days = Api::V1::Day.all
-  # 
-  #   render json: @api_v1_days
-  # end
+  def index
+    binding.pry
+    @bebe = Bebe.find_by_id(params[:bebe_id])
+    @bebe_days = @bebe.days
+
+    @bebe_days_json = DaySerializer.new(@bebe_days).serialized_json
+
+    render json: @bebe_days_json
+  end
   #
   # # GET /api/v1/days/1
   # def show
