@@ -3,7 +3,6 @@ class Api::V1::DaysController < ApplicationController
   #
   # # GET /api/v1/days
   def index
-    binding.pry
     @bebe = Bebe.find_by_id(params[:bebe_id])
     @bebe_days = @bebe.days
 
