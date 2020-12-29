@@ -44,9 +44,13 @@ class Api::V1::BebesController < ApplicationController
   # end
   #
   # # DELETE /api/v1/bebes/1
-  # def destroy
-  #   @bebe.destroy
-  # end
+  def destroy
+    @bebe = Bebe.find_by_id(params[:id])
+    @bebe.destroy
+    
+    bebe_json = BebeSerializer.new(@bebe).serialized_json
+    render json: bebe_json
+  end
 
   private
     # # Use callbacks to share common setup or constraints between actions.
