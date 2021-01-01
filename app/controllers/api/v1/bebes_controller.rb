@@ -33,21 +33,22 @@ class Api::V1::BebesController < ApplicationController
   end
   #
   # PATCH/PUT /api/v1/bebes/1
-  # def update
-  #   binding.pry
-  #   if @bebe.update(bebe_params)
-  #     bebe_json = BebeSerializer.new(@bebe).serialized_json
-  #     render json: bebe_json
-  #   else
-  #     render json: @bebe.errors, status: :unprocessable_entity
-  #   end
-  # end
+  def update
+    @bebe = Bebe.find_by_id(params[:id])
+
+    if @bebe.update(bebe_params)
+      bebe_json = BebeSerializer.new(@bebe).serialized_json
+      render json: bebe_json
+    else
+      render json: @bebe.errors, status: :unprocessable_entity
+    end
+  end
   #
   # # DELETE /api/v1/bebes/1
   def destroy
     @bebe = Bebe.find_by_id(params[:id])
     @bebe.destroy
-    
+
     bebe_json = BebeSerializer.new(@bebe).serialized_json
     render json: bebe_json
   end
