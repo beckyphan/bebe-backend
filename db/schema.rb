@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_21_024239) do
+ActiveRecord::Schema.define(version: 2021_01_03_185733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,6 +37,19 @@ ActiveRecord::Schema.define(version: 2020_12_21_024239) do
     t.index ["bebe_id"], name: "index_days_on_bebe_id"
   end
 
+  create_table "trackings", force: :cascade do |t|
+    t.string "info_type"
+    t.time "start_time"
+    t.time "end_time"
+    t.float "amount"
+    t.string "amount_unit"
+    t.text "note"
+    t.bigint "day_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["day_id"], name: "index_trackings_on_day_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "username"
@@ -45,4 +58,5 @@ ActiveRecord::Schema.define(version: 2020_12_21_024239) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "trackings", "days"
 end
