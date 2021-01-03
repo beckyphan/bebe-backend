@@ -7,7 +7,7 @@ class Api::V1::DaysController < ApplicationController
     @bebe_days = @bebe.days
 
     @bebe_days_json = DaySerializer.new(@bebe_days).serialized_json
-
+    
     render json: @bebe_days_json
   end
   #
