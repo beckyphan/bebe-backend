@@ -17,15 +17,17 @@ class Api::V1::DaysController < ApplicationController
   # end
   #
   # # POST /api/v1/days
-  # def create
-  #   @api_v1_day = Api::V1::Day.new(api_v1_day_params)
-  #
-  #   if @api_v1_day.save
-  #     render json: @api_v1_day, status: :created, location: @api_v1_day
-  #   else
-  #     render json: @api_v1_day.errors, status: :unprocessable_entity
-  #   end
-  # end
+  def create
+    @bebe = Bebe.find_by_id(params[:bebe_id])
+    @new_day = @bebe.days.new(day_params)
+
+    if @new_day.save
+      @day_json = DaySerializer.new(@new_day).serialized_json
+      render json: @day_json, status: :created
+    else
+      render json: @new_day.errors, status: :unprocessable_entity
+    end
+  end
   #
   # # PATCH/PUT /api/v1/days/1
   # def update
@@ -48,7 +50,7 @@ class Api::V1::DaysController < ApplicationController
     # end
     #
     # # Only allow a trusted parameter "white list" through.
-    # def api_v1_day_params
-    #   params.require(:api_v1_day).permit(:picture, :date, :note, :belongs_to)
-    # end
+    def day_params
+      params.require(:day).permit(:picture, :date, :note)
+    end
 end
