@@ -3,4 +3,6 @@ class Day < ApplicationRecord
   validates :date, presence: true
   validates :date, uniqueness: { scope: :bebe_id,
     message: "track data daily per bebe" }
+
+  has_many :trackings, dependent: :destroy
 end
