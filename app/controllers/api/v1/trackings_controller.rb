@@ -17,6 +17,11 @@ class Api::V1::TrackingsController < ApplicationController
 
   #delete - delete an existing data point
   def destroy
+    @tracking = Tracking.find_by_id(params[:id])
+    @tracking.destroy
+
+    tracking_json = TrackingSerializer.new(@tracking).serialized_json
+    render json: tracking_json
   end
 
   private
