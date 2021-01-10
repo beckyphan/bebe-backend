@@ -9,6 +9,15 @@ class Api::V1::TrackingsController < ApplicationController
 
   #create - create a new data point
   def create
+    @new_tracking = @day.trackings.new(tracking_params)
+
+    if @new_tracking.valid?
+      @new_tracking.save!
+      tracking_json = TrackingSerializer.new(@new_tracking).serialized_json
+      render json: tracking_json
+    else
+      render json: @new_tracking.errors, status: :unprocessable_entity
+    end
   end
 
   #update - edit an existing data point
