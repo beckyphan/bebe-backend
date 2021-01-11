@@ -24,15 +24,7 @@ class Api::V1::BebesController < ApplicationController
     @bebe = @user.bebes.new(bebe_params)
 
     if @user && @bebe.valid?
-      if @bebe.img === ""
-        if @bebe.kind === "human"
-          @bebe.img = "https://lh5.googleusercontent.com/proxy/utIR8FJt6xGYBIYhIkJOxvUJsQ8f0uzEKr2AAcUoZcCzE6gpwHrbbe9QuSn-cTcXSXXKnDeSDRVC8l4wRgNQn26wQ5a3UvPLHdgGP8wty_j2NKeU4qa1jF3JKAKLRUTHndMISCekbWIZxTsYyRmFncOMAJMhiVmtUT1l2Uhr4Q0Lo_4LSTTQ0G4MwhiQ0veJXOu0M1-yoJFs7OTLnJmiIfKR6i1MCZJK10cULkRl=s0-d"
-        elsif @bebe.kind === "plant"
-          @bebe.img = "https://images.vexels.com/media/users/3/148692/isolated/preview/4ff28c6516ef2c46843f69010116d898-flowerpot-with-plant-clipart-by-vexels.png"
-        else
-          @bebe.img = "https://webstockreview.net/images/clipart-dog-simple.png"
-        end
-      end
+      set_default_image
 
       @bebe.save!
       bebe_json = BebeSerializer.new(@bebe).serialized_json
@@ -45,6 +37,8 @@ class Api::V1::BebesController < ApplicationController
   # PATCH/PUT /api/v1/bebes/1
   def update
     @bebe = Bebe.find_by_id(params[:id])
+
+    set_default_image
 
     if @bebe.update(bebe_params)
       bebe_json = BebeSerializer.new(@bebe).serialized_json
@@ -68,6 +62,18 @@ class Api::V1::BebesController < ApplicationController
     # def set_bebe
     #   @bebe = Bebe.find(params[:id])
     # end
+
+    def set_default_image
+      if @bebe.img === ""
+        if @bebe.kind === "human"
+          @bebe.img = "https://lh5.googleusercontent.com/proxy/utIR8FJt6xGYBIYhIkJOxvUJsQ8f0uzEKr2AAcUoZcCzE6gpwHrbbe9QuSn-cTcXSXXKnDeSDRVC8l4wRgNQn26wQ5a3UvPLHdgGP8wty_j2NKeU4qa1jF3JKAKLRUTHndMISCekbWIZxTsYyRmFncOMAJMhiVmtUT1l2Uhr4Q0Lo_4LSTTQ0G4MwhiQ0veJXOu0M1-yoJFs7OTLnJmiIfKR6i1MCZJK10cULkRl=s0-d"
+        elsif @bebe.kind === "plant"
+          @bebe.img = "https://images.vexels.com/media/users/3/148692/isolated/preview/4ff28c6516ef2c46843f69010116d898-flowerpot-with-plant-clipart-by-vexels.png"
+        else
+          @bebe.img = "https://webstockreview.net/images/clipart-dog-simple.png"
+        end
+      end
+    end
 
     # Only allow a trusted parameter "white list" through.
     def bebe_params
