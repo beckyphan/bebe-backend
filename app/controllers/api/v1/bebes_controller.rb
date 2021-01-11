@@ -21,9 +21,20 @@ class Api::V1::BebesController < ApplicationController
   # POST /api/v1/user/:id/bebes
   def create
     @user = User.find_by_id(params[:user_id])
+    @bebe = @user.bebes.new(bebe_params)
 
-    if @user && @user.bebes.new(bebe_params).valid?
-      @bebe = @user.bebes.create(bebe_params)
+    if @user && @bebe.valid?
+      if @bebe.img === ""
+        if @bebe.kind === "human"
+          @bebe.img = "https://www.pngitem.com/pimgs/m/3-36380_transparent-baby-boy-clipart-hd-png-download.png"
+        elsif @bebe.kind === "plant"
+          @bebe.img = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9MAd3QOd4X_miWMLW5oBLJM7G9qmvb2TDrQ&usqp=CAU"
+        else
+          @bebe.img = "https://illustoon.com/photo/348.png"
+        end
+      end
+
+      @bebe.save!
       bebe_json = BebeSerializer.new(@bebe).serialized_json
       render json: bebe_json
     else
