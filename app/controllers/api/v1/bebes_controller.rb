@@ -26,11 +26,11 @@ class Api::V1::BebesController < ApplicationController
     if @user && @bebe.valid?
       if @bebe.img === ""
         if @bebe.kind === "human"
-          @bebe.img = "https://www.pngitem.com/pimgs/m/3-36380_transparent-baby-boy-clipart-hd-png-download.png"
+          @bebe.img = "https://lh5.googleusercontent.com/proxy/utIR8FJt6xGYBIYhIkJOxvUJsQ8f0uzEKr2AAcUoZcCzE6gpwHrbbe9QuSn-cTcXSXXKnDeSDRVC8l4wRgNQn26wQ5a3UvPLHdgGP8wty_j2NKeU4qa1jF3JKAKLRUTHndMISCekbWIZxTsYyRmFncOMAJMhiVmtUT1l2Uhr4Q0Lo_4LSTTQ0G4MwhiQ0veJXOu0M1-yoJFs7OTLnJmiIfKR6i1MCZJK10cULkRl=s0-d"
         elsif @bebe.kind === "plant"
-          @bebe.img = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9MAd3QOd4X_miWMLW5oBLJM7G9qmvb2TDrQ&usqp=CAU"
+          @bebe.img = "https://images.vexels.com/media/users/3/148692/isolated/preview/4ff28c6516ef2c46843f69010116d898-flowerpot-with-plant-clipart-by-vexels.png"
         else
-          @bebe.img = "https://illustoon.com/photo/348.png"
+          @bebe.img = "https://webstockreview.net/images/clipart-dog-simple.png"
         end
       end
 
