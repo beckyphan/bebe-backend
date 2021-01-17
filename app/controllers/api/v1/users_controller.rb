@@ -22,7 +22,7 @@ class Api::V1::UsersController < ApplicationController
       user_json = UserSerializer.new(@user).serialized_json
       render json: user_json, status: 200
     elsif @user
-      render json: {error: "Failed to Authenticate"}, status: 400
+      render json: {error: "Failed to Authenticate. Please Try Again."}, status: 400
     else
       render json: {error: "Failed to Find User"}, status: 400
     end
