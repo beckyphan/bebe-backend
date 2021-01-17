@@ -1,5 +1,4 @@
 class Api::V1::BebesController < ApplicationController
-  # before_action :set_bebe, only: [:show, :update, :destroy]
 
   # GET /api/v1/users/:id/bebes
   def index
@@ -33,7 +32,7 @@ class Api::V1::BebesController < ApplicationController
       render json: @bebe.errors, status: :unprocessable_entity
     end
   end
-  #
+
   # PATCH/PUT /api/v1/bebes/1
   def update
     @bebe = Bebe.find_by_id(params[:id])
@@ -47,8 +46,8 @@ class Api::V1::BebesController < ApplicationController
       render json: @bebe.errors, status: :unprocessable_entity
     end
   end
-  #
-  # # DELETE /api/v1/bebes/1
+
+  # DELETE /api/v1/bebes/1
   def destroy
     @bebe = Bebe.find_by_id(params[:id])
     @bebe.destroy
@@ -58,11 +57,6 @@ class Api::V1::BebesController < ApplicationController
   end
 
   private
-    # # Use callbacks to share common setup or constraints between actions.
-    # def set_bebe
-    #   @bebe = Bebe.find(params[:id])
-    # end
-
     def set_default_image
       if @bebe.img === ""
         if @bebe.kind === "human"
@@ -75,7 +69,6 @@ class Api::V1::BebesController < ApplicationController
       end
     end
 
-    # Only allow a trusted parameter "white list" through.
     def bebe_params
       params.require(:bebe).permit(:name, :birthdate, :kind, :bio, :img)
     end
