@@ -38,9 +38,9 @@ class Api::V1::BebesController < ApplicationController
   def update
     @bebe = Bebe.find_by_id(params[:id])
 
-    set_default_image
-
     if @bebe.update(bebe_params)
+      set_default_image
+      @bebe.save
       bebe_json = BebeSerializer.new(@bebe).serialized_json
       render json: bebe_json
     else

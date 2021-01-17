@@ -26,7 +26,7 @@ class Api::V1::DaysController < ApplicationController
       @day_json = DaySerializer.new(@new_day).serialized_json
       render json: @day_json, status: :created
     else
-      render json: {error: @new_day.errors}, status: :unprocessable_entity
+      render json: {error: @new_day.errors.messages}, status: :unprocessable_entity
     end
   end
   #
