@@ -24,7 +24,7 @@ class Api::V1::UsersController < ApplicationController
     elsif @user
       render json: {error: "Failed to Authenticate. Please Try Again."}, status: 400
     else
-      render json: {error: "Failed to Find User"}, status: 400
+      render json: {error: "Failed to Find User. Are you trying to register?"}, status: 400
     end
   end
 
