@@ -34,17 +34,19 @@ class Api::V1::UsersController < ApplicationController
   end
 
   # PATCH/PUT api/v1/users/1
-  def update
-    if @user.update(user_params)
-      render json: @user
-    else
-      render json: @user.errors, status: :unprocessable_entity
-    end
-  end
+  # def update
+  #   if @user.update(user_params)
+  #     render json: @user
+  #   else
+  #     render json: @user.errors, status: :unprocessable_entity
+  #   end
+  # end
 
   # DELETE api/v1/users/1
   def destroy
+    @user = User.find_by_id(params[:id])
     @user.destroy
+    render json: {confirmation: "Your account was successfully deleted."}, status: 200
   end
 
   private
