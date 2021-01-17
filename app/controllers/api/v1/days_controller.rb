@@ -21,7 +21,8 @@ class Api::V1::DaysController < ApplicationController
     @bebe = Bebe.find_by_id(params[:bebe_id])
     @new_day = @bebe.days.new(day_params)
 
-    if @new_day.save!
+    if @new_day.valid?
+      @new_day.save
       @day_json = DaySerializer.new(@new_day).serialized_json
       render json: @day_json, status: :created
     else
