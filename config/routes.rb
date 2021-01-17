@@ -2,10 +2,10 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      resources :users do
-        resources :bebes do
-          resources :days do
-            resources :trackings
+      resources :users, only: [:create, :show, :destroy] do
+        resources :bebes, only: [:index, :create, :show, :update, :destroy] do
+          resources :days, only: [:index, :create] do
+            resources :trackings, only: [:index, :create, :update, :destroy]
           end
         end
       end
