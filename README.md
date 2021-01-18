@@ -18,6 +18,39 @@ The current abilities include:
 
 Update controller actions and corresponding actions in frontend if you want additional functionality.
 
+## the schema
+```
+"bebes"
+  string "name"
+  date "birthdate"
+  string "kind"
+  text "bio"
+  bigint "user_id"
+  string "img"
+
+"days"
+  string "picture"
+  date "date"
+  text "note"
+  bigint "bebe_id"
+
+
+"trackings"
+  string "info_type"
+  time "start_time"
+  time "end_time"
+  float "amount"
+  string "amount_unit"
+  text "note"
+  bigint "day_id", null: false
+
+
+"users"
+  string "name"
+  string "username"
+  string "password_digest"
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
