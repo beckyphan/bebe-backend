@@ -60,7 +60,7 @@ class Api::V1::BebesController < ApplicationController
     def set_default_image
       if @bebe.img === ""
         if @bebe.kind === "human"
-          @bebe.img = "https://lh5.googleusercontent.com/proxy/utIR8FJt6xGYBIYhIkJOxvUJsQ8f0uzEKr2AAcUoZcCzE6gpwHrbbe9QuSn-cTcXSXXKnDeSDRVC8l4wRgNQn26wQ5a3UvPLHdgGP8wty_j2NKeU4qa1jF3JKAKLRUTHndMISCekbWIZxTsYyRmFncOMAJMhiVmtUT1l2Uhr4Q0Lo_4LSTTQ0G4MwhiQ0veJXOu0M1-yoJFs7OTLnJmiIfKR6i1MCZJK10cULkRl=s0-d"
+          @bebe.img = "https://res.cloudinary.com/bphan/image/upload/v1611249131/baby_qyes8a.png"
         elsif @bebe.kind === "plant"
           @bebe.img = "https://images.vexels.com/media/users/3/148692/isolated/preview/4ff28c6516ef2c46843f69010116d898-flowerpot-with-plant-clipart-by-vexels.png"
         else
